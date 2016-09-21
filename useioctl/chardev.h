@@ -15,7 +15,7 @@
 /* The major device number. We can't rely on dynamic 
  * registration any more, because ioctls need to know 
  * it. */
-#define MAJOR_NUM 100
+#define MAJOR_NUM 81
 
 
 /* Set the message of the device driver */
