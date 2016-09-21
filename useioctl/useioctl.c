@@ -19,7 +19,7 @@
 
 /* Functions for the ioctl calls */
 
-ioctl_set_msg(int file_desc, char *message)
+int ioctl_set_msg(int file_desc, char *message)
 {
   int ret_val;
 
@@ -29,11 +29,13 @@ ioctl_set_msg(int file_desc, char *message)
     printf ("ioctl_set_msg failed:%d\n", ret_val);
     exit(-1);
   }
+  
+  return ret_val;
 }
 
 
 
-ioctl_get_msg(int file_desc)
+int ioctl_get_msg(int file_desc)
 {
   int ret_val;
   char message[100]; 
@@ -53,11 +55,12 @@ ioctl_get_msg(int file_desc)
   }
 
   printf("get_msg message:%s\n", message);
+  return ret_val;
 }
 
 
 
-ioctl_get_nth_byte(int file_desc)
+int ioctl_get_nth_byte(int file_desc)
 {
   int i;
   char c;
@@ -77,6 +80,7 @@ ioctl_get_nth_byte(int file_desc)
     putchar(c);
   } 
   putchar('\n');
+  return ret_val;
 }
 
 
