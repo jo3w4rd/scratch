@@ -12,7 +12,7 @@
 #include <fcntl.h>      /* open */ 
 #include <unistd.h>     /* exit */
 #include <sys/ioctl.h>  /* ioctl */
-
+#include <stdio.h>
 
 
 /* Functions for the ioctl calls */
