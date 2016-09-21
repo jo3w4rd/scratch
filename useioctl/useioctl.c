@@ -91,8 +91,8 @@ int main()
 
   file_desc = open(DEVICE_FILE_NAME, 0);
   if (file_desc < 0) {
-    printf ("Can't open device file: %s\n", 
-            DEVICE_FILE_NAME);
+    printf ("Can't open device file: %s, becasue %i\n", 
+            DEVICE_FILE_NAME, file_desc);
     exit(-1);
   }
 
