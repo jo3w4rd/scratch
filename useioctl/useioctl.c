@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include <errno.h>
 
 /* Functions for the ioctl calls */
 
@@ -90,9 +90,10 @@ int main()
   char *msg = "Message passed by ioctl\n";
 
   file_desc = open(DEVICE_FILE_NAME, O_RDWR);
+  int errsv = errno;
   if (file_desc < 0) {
     printf ("Can't open device file: %s, becasue %i\n", 
-            DEVICE_FILE_NAME, file_desc);
+            DEVICE_FILE_NAME, errsv);
     exit(-1);
   }
 
