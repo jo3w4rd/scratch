@@ -51,7 +51,7 @@
 
 
 /* The name of the device file */
-#define DEVICE_FILE_NAME "video0"
+#define DEVICE_FILE_NAME "/dev/video0"
 
 
 #endif

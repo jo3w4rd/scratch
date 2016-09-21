@@ -92,7 +92,7 @@ int main()
   file_desc = open(DEVICE_FILE_NAME, O_RDWR);
   int errsv = errno;
   if (file_desc < 0) {
-    printf ("Can't open device file: %s, becasue %s\n", 
+    printf ("Can't open device file: %s, because %s\n", 
             DEVICE_FILE_NAME, strerror(errsv));
     exit(-1);
   }
