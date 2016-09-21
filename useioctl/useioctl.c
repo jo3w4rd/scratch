@@ -84,7 +84,7 @@ void ioctl_get_nth_byte(int file_desc)
 
 
 /* Main - Call the ioctl functions */
-void main()
+int main()
 {
   int file_desc, ret_val;
   char *msg = "Message passed by ioctl\n";
