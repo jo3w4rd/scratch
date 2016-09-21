@@ -89,7 +89,7 @@ int main()
   int file_desc, ret_val;
   char *msg = "Message passed by ioctl\n";
 
-  file_desc = open(DEVICE_FILE_NAME, 0);
+  file_desc = open(DEVICE_FILE_NAME, O_RDWR);
   if (file_desc < 0) {
     printf ("Can't open device file: %s, becasue %i\n", 
             DEVICE_FILE_NAME, file_desc);
