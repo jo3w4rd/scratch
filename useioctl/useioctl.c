@@ -14,7 +14,7 @@
 #include <sys/ioctl.h>  /* ioctl */
 #include <stdio.h>
 #include <string.h>
-#include <stlib.h>
+#include <stdlib.h>
 
 
 /* Functions for the ioctl calls */
