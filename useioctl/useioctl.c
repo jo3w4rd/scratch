@@ -97,7 +97,6 @@ int main()
     exit(-1);
   }
 
-  ioctl_get_nth_byte(file_desc);
   ret_val = ioctl_get_msg(file_desc);
   ret_val = ioctl_set_msg(file_desc, msg);
 
