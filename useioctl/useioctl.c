@@ -72,7 +72,7 @@ int query_info(int file_desc){
     int ret_val;
     
     struct uvc_xu_control_query args;
-    args.unit = LEAP_XU_GUID;
+    args.unit = 12;
     args.selector = LEAP_XU_STROBE_WIDTH;
     args.query = UVC_GET_INFO;
     args.size = 1;
@@ -81,7 +81,7 @@ int query_info(int file_desc){
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, args);
     printf("Query returned: %i\n", ret_val);
 
-    free(args);
+    free(args.data);
     return ret_val;
 }
 
