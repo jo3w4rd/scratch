@@ -71,17 +71,17 @@ int ioctl_get_msg(int file_desc)
 int query_info(int file_desc){
     int ret_val;
     
-    struct uvc_query_ctrl args;
+    struct uvc_xu_control_query args;
     args.unit = LEAP_XU_GUID;
     args.selector = LEAP_XU_STROBE_WIDTH;
     args.query = UVC_GET_INFO;
     args.size = 1;
-    args.data = kmalloc(args.size);
+    args.data = malloc(args.size);
     
-    ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, message);
-    
+    ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, args);
     printf("Query returned: %i\n", ret_val);
-    
+
+    free(args);
     return ret_val;
 }
 
