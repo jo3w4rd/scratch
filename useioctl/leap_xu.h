@@ -415,7 +415,7 @@ typedef struct _LEAP_SET_UPGRADE_TARGET {
   // extension units smaller than 32 bits.
   uint16_t reserved;
 } LEAP_SET_UPGRADE_TARGET;
-STATIC_ASSERT(sizeof(LEAP_SET_UPGRADE_TARGET) == 4, upgTgtExtent, "Upgrade target XU field must be exactly four bytes long");
+//STATIC_ASSERT(sizeof(LEAP_SET_UPGRADE_TARGET) == 4, upgTgtExtent, "Upgrade target XU field must be exactly four bytes long");
 
 typedef enum _LEAP_RESOLUTION {
   // USB 2.0 resolutions:
