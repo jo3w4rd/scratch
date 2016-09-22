@@ -24,42 +24,6 @@
 
 /* Functions for the ioctl calls */
 
-int ioctl_set_msg(int file_desc, char *message)
-{
-  int ret_val;
-
-  ret_val = ioctl(file_desc, IOCTL_SET_MSG, message);
-
-  if (ret_val < 0) {
-    printf ("ioctl_set_msg failed:%d\n", ret_val);
-  }
-  
-  return ret_val;
-}
-
-
-
-int ioctl_get_msg(int file_desc)
-{
-  int ret_val;
-  char message[100]; 
-
-  /* Warning - this is dangerous because we don't tell 
-   * the kernel how far it's allowed to write, so it 
-   * might overflow the buffer. In a real production 
-   * program, we would have used two ioctls - one to tell
-   * the kernel the buffer length and another to give 
-   * it the buffer to fill
-   */
-  ret_val = ioctl(file_desc, IOCTL_GET_MSG, message);
-
-  if (ret_val < 0) {
-    printf ("ioctl_get_msg failed:%d\n", ret_val);
-  }
-
-  printf("get_msg message:%s\n", message);
-  return ret_val;
-}
 
 // __u8 unit;
 // __u8 selector;
@@ -78,43 +42,18 @@ int query_info(int file_desc){
     args.size = 1;
     args.data = malloc(args.size);
     
-    ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, args);
+    ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
     printf("Query returned: %i\n", ret_val);
 
     free(args.data);
     return ret_val;
 }
 
-void ioctl_get_nth_byte(int file_desc)
-{
-  int i;
-  char c;
-
-  printf("get_nth_byte message:");
-
-  i = 0;
-  while (c != 0) {
-    c = ioctl(file_desc, IOCTL_GET_NTH_BYTE, i++);
-
-    if (c < 0) {
-      printf(
-      "ioctl_get_nth_byte failed at the %d'th byte:\n", i);
-      exit(-1);
-    }
-
-    putchar(c);
-  } 
-  putchar('\n');
-}
-
-
-
 
 /* Main - Call the ioctl functions */
 int main()
 {
   int file_desc, ret_val;
-  char *msg = "Message passed by ioctl\n";
 
   file_desc = open(DEVICE_FILE_NAME, O_RDWR);
   int errsv = errno;
