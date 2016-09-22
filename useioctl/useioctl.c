@@ -64,8 +64,10 @@ int main()
   }
 
   ret_val = query_info(file_desc);
-  printf("Query returned: %i\n", ret_val);
-
+  if(ret_val < 0){
+      printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
+      
+  }
   close(file_desc); 
   
   return ret_val;
