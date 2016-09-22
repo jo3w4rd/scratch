@@ -124,8 +124,8 @@ int main()
     exit(-1);
   }
 
-  ret_val = ioctl_get_msg(file_desc);
-  ret_val = ioctl_set_msg(file_desc, msg);
+  ret_val = query_info(file_desc);
+  printf("Query returned: %i\n", ret_val);
 
   close(file_desc); 
   
