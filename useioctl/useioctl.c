@@ -7,8 +7,6 @@
 /* device specifics, such as ioctl numbers and the 
  * major device file. */
 #include "chardev.h"    
-#include "leap_xu.h"
-#include "uvcvideo.h"
 
 
 #include <fcntl.h>      /* open */ 
@@ -20,6 +18,9 @@
 #include <errno.h>
 
 #include <linux/usb/video.h>
+
+#include "uvcvideo.h"
+#include "leap_xu.h"
 
 /* Functions for the ioctl calls */
 
