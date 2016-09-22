@@ -34,7 +34,7 @@
 #include "mmal-vchiq.h"
 #include "mmal-msg.h"
 #include "mmal-parameters.h"
-#include "bcm2835-camera.h"
+#include "lpv4l2-camera.h"
 #include "leap_xu_v4l2.h" //Leap Motion v4l2 XU
 
 #define BM2835_MMAL_VERSION "0.0.2"
