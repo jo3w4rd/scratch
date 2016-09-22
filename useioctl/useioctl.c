@@ -19,6 +19,8 @@
 #include <stdlib.h>
 #include <errno.h>
 
+#include <linux/usb/video.h>
+
 /* Functions for the ioctl calls */
 
 int ioctl_set_msg(int file_desc, char *message)
@@ -58,7 +60,29 @@ int ioctl_get_msg(int file_desc)
   return ret_val;
 }
 
+// __u8 unit;
+// __u8 selector;
+// __u8 query;        /* Video Class-Specific Request Code, */
+//             /* defined in linux/usb/video.h A.8.  */
+// __u16 size;
+// __u8 *data;
 
+int query_info(int file_desc){
+    int ret_val;
+    
+    struct uvc_query_ctrl args;
+    args.unit = LEAP_XU_GUID;
+    args.selector = LEAP_XU_STROBE_WIDTH;
+    args.query = UVC_GET_INFO;
+    args.size = 1;
+    args.data = kmalloc(args.size);
+    
+    ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, message);
+    
+    printf("Query returned: %i\n", ret_val);
+    
+    return ret_val;
+}
 
 void ioctl_get_nth_byte(int file_desc)
 {
