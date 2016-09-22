@@ -28,7 +28,7 @@
 #include "mmal-common.h"
 #include "mmal-vchiq.h"
 #include "mmal-parameters.h"
-#include "bcm2835-camera.h"
+#include "lpv4l2-camera.h"
 
 /* The supported V4L2_CID_AUTO_EXPOSURE_BIAS values are from -4.0 to +4.0.
  * MMAL values are in 1/6th increments so the MMAL range is -24 to +24.
