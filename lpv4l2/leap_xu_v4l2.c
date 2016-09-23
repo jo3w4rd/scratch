@@ -8,7 +8,7 @@
 #include "leap_xu_v4l2.h"
 
 static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control_query *xqry){
-   return 3;
+   return 5;
 }
 
 long leap_xu_ioctl_default(struct file *file, void *fh, bool valid_prio, unsigned int cmd, void *arg) {
