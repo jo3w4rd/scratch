@@ -38,7 +38,7 @@
 #include "leap_xu_v4l2.h" //Leap Motion v4l2 XU
 
 #define BM2835_MMAL_VERSION "0.0.2"
-#define BM2835_MMAL_MODULE_NAME "bcm2835-v4l2"
+#define BM2835_MMAL_MODULE_NAME "leap-v4l2"
 #define MIN_WIDTH 32
 #define MIN_HEIGHT 32
 #define MIN_BUFFER_SIZE (80*1024)
@@ -48,7 +48,7 @@
 
 #define MAX_BCM2835_CAMERAS 2
 
-MODULE_DESCRIPTION("Broadcom 2835 MMAL video capture");
+MODULE_DESCRIPTION("Leap experimental 2835 MMAL video capture");
 MODULE_AUTHOR("Vincent Sanders");
 MODULE_LICENSE("GPL");
 MODULE_VERSION(BM2835_MMAL_VERSION);

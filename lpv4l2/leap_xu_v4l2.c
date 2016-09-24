@@ -7,23 +7,24 @@
 #include "uvcvideo.h"
 #include "leap_xu_v4l2.h"
 
-static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control_query *xqry){
-   return 5;
+static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control_query *xu_query){
+    printk(KERN_ALERT "Query type: %i for selector %i.\n", xu_query->query, xu_query->selector);
+    return 5;
 }
 
 long leap_xu_ioctl_default(struct file *file, void *fh, bool valid_prio, unsigned int cmd, void *arg) {
          printk(KERN_ALERT "xu ioctl was indeed called\n");
-
-         switch (cmd) {
-        /* Dynamic controls. */
-         case UVCIOC_CTRL_QUERY:
-                 return handle_xu_operation(fh, valid_prio, arg);
-
-         // Not supported
-         case UVCIOC_CTRL_MAP:
-                 return -ENOTTY;
-
-         default:
-                 return -ENOTTY;
+         
+         if(cmd == UVCIOC_CTRL_QUERY){
+             struct uvc_xu_control_query xu_query = {};
+             __u16 length;
+             get_user(arg->size, length);
+             if(copy_from_user(xu_query, arg, sizeof(struct uvc_xu_control_query))){
+                 return handle_xu_operation(fh, valid_prio, xu_query);
+             } else {
+                 return -EFAULT;
+             }
+         } else {
+             return -ENOTTY;
          }
 }
