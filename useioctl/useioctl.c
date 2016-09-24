@@ -37,8 +37,8 @@ int query_info(int file_desc){
     
     struct uvc_xu_control_query args;
     args.unit = 12;
-    args.selector = LEAP_XU_STROBE_WIDTH;
-    args.query = UVC_GET_INFO;
+    args.selector = LEAP_XU_LED_POSITIONS;
+    args.query = UVC_SET_CUR;
     args.size = 1;
     args.data = malloc(args.size);
     
