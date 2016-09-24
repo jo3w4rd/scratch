@@ -14,11 +14,10 @@ static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control
 
 long leap_xu_ioctl_default(struct file *file, void *fh, bool valid_prio, unsigned int cmd, void *arg) {
          printk(KERN_ALERT "xu ioctl was indeed called\n");
+         printk(KERN_ALERT "Query type: %i for selector %i.\n", arg->query, arg->selector);
          
          if(cmd == UVCIOC_CTRL_QUERY){
              struct uvc_xu_control_query xu_query = {};
-             //__u16 length;
-             //get_user(arg->size, length);
              if(copy_from_user(&xu_query, arg, sizeof(struct uvc_xu_control_query))){
                  return handle_xu_operation(fh, valid_prio, &xu_query);
              } else {
