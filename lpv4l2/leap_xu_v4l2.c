@@ -4,6 +4,7 @@
  *
  * V4L2 driver Leap Motion extension unit code
  */
+#include <linux/types.h>
 #include <linux/uvcvideo.h>
 #include "leap_xu_v4l2.h"
 
@@ -24,8 +25,8 @@ struct leap_xu_ctrl{
 
 
 static const struct leap_xu_ctrl leap_xu_ctrls[] = {
-    {LEAP_XU_STROBE_WIDTH, sizeof(u32_t), NULL, NULL},
-    {LEAP_XU_LED_POSITIONS, sizeof(u8_t), NULL, NULL}
+    {LEAP_XU.LEAP_XU_STROBE_WIDTH, sizeof(u32_t), NULL, NULL},
+    {LEAP_XU.LEAP_XU_LED_POSITIONS, sizeof(u8_t), NULL, NULL}
 };
 static const num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_ctrls[0] );
 
