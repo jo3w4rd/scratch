@@ -10,9 +10,9 @@
 #include "leap_xu_v4l2.h"
 
 static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control_query *xu_query){
-    printk(KERN_ALERT "Query type: %i for selector %i with data %c.\n", xu_query->query, xu_query->selector, (char *)xu_query->data);
-    char data = (char *)xu_query->data;
-    return atol(data);
+    printk(KERN_ALERT "Query type: %i for selector %i with data %u.\n", xu_query->query, xu_query->selector, *(xu_query->data));
+    __u8 data = *xu_query->data;
+    return data;
 }
 
 long leap_xu_ioctl_default(struct file *file, void *fh, bool valid_prio, unsigned int cmd, void *arg) {

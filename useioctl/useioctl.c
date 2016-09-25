@@ -34,7 +34,7 @@
 
 int query_info(int file_desc){
     int ret_val;
-    char dataChar = 'a';
+    __u8 dataChar = 16;
     
     struct uvc_xu_control_query args;
     args.unit = 12;
