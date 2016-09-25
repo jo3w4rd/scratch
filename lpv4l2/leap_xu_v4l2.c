@@ -23,7 +23,7 @@ struct leap_xu_ctrl{
 }
 
 
-static const leap_xu_ctrl leap_xu_ctrls[] = {
+static const struct leap_xu_ctrl leap_xu_ctrls[] = {
     {LEAP_XU_STROBE_WIDTH, sizeof(u32_t), NULL, NULL},
     {LEAP_XU_LED_POSITIONS, sizeof(u8_t), NULL, NULL}
 }
