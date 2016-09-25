@@ -1,5 +1,5 @@
 #pragma once
-#include <stdint.h>
+#include <linux/stdint.h>
 #include "types.h"
 
 #pragma pack(1)
