@@ -8,8 +8,9 @@
 #include "leap_xu_v4l2.h"
 
 static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control_query *xu_query){
-    printk(KERN_ALERT "Query type: %i for selector %i.\n", xu_query->query, xu_query->selector);
-    return (int *)xu_query->data;
+    printk(KERN_ALERT "Query type: %i for selector %i with data %c.\n", xu_query->query, xu_query->selector, (char *)xu_query->data);
+    char data = (char *)xu_query->data;
+    return atol(data);
 }
 
 long leap_xu_ioctl_default(struct file *file, void *fh, bool valid_prio, unsigned int cmd, void *arg) {
