@@ -33,7 +33,7 @@ static const int num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_c
 static int find_leap_xu_ctrl(__u8 selector, struct leap_xu_ctrl *ctrl){
     int c;
     for(c =0; c < num_leap_xu_ctrls; c++){
-        if(leap_xu_ctrls[c].selector == selector){
+        if(leap_xu_ctrls[c].id == selector){
             ctrl = &leap_xu_ctrls[c];
             return 0;
         }
