@@ -4,8 +4,6 @@
  *
  * V4L2 driver Leap Motion extension unit code
  */
-#include <stdlib.h>     /* atol */
-
 #include <linux/uvcvideo.h>
 #include "leap_xu_v4l2.h"
 
