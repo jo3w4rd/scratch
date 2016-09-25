@@ -16,7 +16,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
-
+#include <stdint.h>
 #include <linux/usb/video.h>
 #include <linux/uvcvideo.h>
 
@@ -34,17 +34,17 @@
 
 int query_info(int file_desc){
     int ret_val;
-    __u8 dataChar = 16;
+    uint16_t dataChar = 16;
     
     struct uvc_xu_control_query args;
     args.unit = 12;
     args.selector = LEAP_XU_LED_POSITIONS;
-    args.query = UVC_SET_CUR;
-    args.size = 1;
+    args.query = UVC_GET_LEN;
+    args.size = 2;
     args.data = &dataChar;
     
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
-    printf("Query returned: %i\n", ret_val);
+    printf("Query returned: %i, and data %i\n", ret_val, (uint16_t *)args.data);
 
     return ret_val;
 }
