@@ -18,8 +18,9 @@ long leap_xu_ioctl_default(struct file *file, void *fh, bool valid_prio, unsigne
          
          if(cmd == UVCIOC_CTRL_QUERY){
              struct uvc_xu_control_query xu_query = {5, 5, 5, 5, 1};
-             if(copy_from_user(&xu_query, arg, sizeof(struct uvc_xu_control_query))){
-                 printk(KERN_ALERT "Query type: %i for selector %i.\n", xu_query.query, xu_query.selector);
+             int count = copy_from_user(&xu_query, arg, sizeof(struct uvc_xu_control_query));
+             if(count){
+                 printk(KERN_ALERT "%i bytes copied for Query type: %i for selector %i.\n", count, xu_query.query, xu_query.selector);
                  
                  return handle_xu_operation(fh, valid_prio, &xu_query);
              } else {
