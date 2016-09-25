@@ -28,10 +28,10 @@ static const struct leap_xu_ctrl leap_xu_ctrls[] = {};
 //    {LEAP_XU.LEAP_XU_STROBE_WIDTH, sizeof(u32_t), NULL, NULL},
 //    {LEAP_XU.LEAP_XU_LED_POSITIONS, sizeof(u8_t), NULL, NULL}
 //};
-static const int num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_ctrls[0] );
+//static const int num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_ctrls[0] );
 
 static int find_leap_xu_ctrl(__u8 selector, leap_xu_ctrl *ctrl){
-    for(int c = 0; c < num_leap_xu_ctrls; c++){
+    for(int c = 0; c < 2 /*num_leap_xu_ctrls*/; c++){
         if(leap_xu_ctrls[c].selector == selector){
             ctrl = leap_xu_ctrls[c];
             return 0;
