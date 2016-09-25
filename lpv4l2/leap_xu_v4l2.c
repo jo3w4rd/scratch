@@ -5,6 +5,7 @@
  * V4L2 driver Leap Motion extension unit code
  */
 #include <linux/types.h>
+#include <linux/usb/video.h>
 #include <linux/uvcvideo.h>
 #include "leap_xu_v4l2.h"
 
@@ -49,13 +50,13 @@ static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control
         switch(xu_query->query){
             case UVC_SET_CUR:
                 if(xu_ctrl->setter){
-                    return xu_ctrl->setter(fh, xu_ctrl, data);
+                    return xu_ctrl->setter(fh, xu_ctrl, xu_query->data);
                 } else {
                     return -EBADRQC;
                 }
             case UVC_GET_CUR:
                 if(xu_ctrl->getter){
-                    return xu_ctrl->getter(fh, xu_ctrl, data);
+                    return xu_ctrl->getter(fh, xu_ctrl, xu_query->data);
                 } else {
                     return -EBADRQC;
                 }
