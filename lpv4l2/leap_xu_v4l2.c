@@ -8,6 +8,7 @@
 #include <linux/usb/video.h>
 #include <linux/uvcvideo.h>
 #include "leap_xu_v4l2.h"
+#include "leap_xu.h"
 
 struct leap_xu_ctrl;
 
