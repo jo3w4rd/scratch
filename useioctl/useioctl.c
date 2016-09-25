@@ -18,13 +18,13 @@
 #include <errno.h>
 
 #include <linux/usb/video.h>
+#include <linux/uvcvideo.h>
 
-#include "uvcvideo.h"
 #include "leap_xu.h"
 
 /* Functions for the ioctl calls */
 
-
+// uvc_xu_control_query ::
 // __u8 unit;
 // __u8 selector;
 // __u8 query;        /* Video Class-Specific Request Code, */
@@ -41,7 +41,7 @@ int query_info(int file_desc){
     args.query = UVC_SET_CUR;
     args.size = 1;
     args.data = malloc(args.size);
-    *args.data = 7;
+    *args.data = 32;
     
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
     printf("Query returned: %i\n", ret_val);
