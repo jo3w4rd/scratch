@@ -43,7 +43,7 @@ static int find_leap_xu_ctrl(__u8 selector, const struct leap_xu_ctrl *ctrl){
 }
 
 static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control_query *xu_query){
-    const struct leap_xu_ctrl *xu_ctrl;
+    const struct leap_xu_ctrl *xu_ctrl = NULL;
     if(find_leap_xu_ctrl(xu_query->selector, xu_ctrl)){
         return -EINVAL;
     } else {
