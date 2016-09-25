@@ -61,12 +61,12 @@ static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control
                     return -EBADRQC;
                 }
             case UVC_GET_LEN:
-                xu_query->data = xu_ctrl->dataSize;
+                *xu_query->data = xu_ctrl->dataSize;
                 return 0;
             case UVC_GET_INFO:
                 xu_query->data = 0;
-                if(xu_ctrl->getter) xu_query->data |= 0x01;
-                if(xu_ctrl->setter) xu_query->data |= 0x02;
+                if(xu_ctrl->getter) *xu_query->data |= 0x01;
+                if(xu_ctrl->setter) *xu_query->data |= 0x02;
                 return 0;
             default:
                 return -EINVAL;
