@@ -25,13 +25,13 @@ struct leap_xu_ctrl{
 
 
 static const struct leap_xu_ctrl leap_xu_ctrls[] = {};
-//    {LEAP_XU.LEAP_XU_STROBE_WIDTH, sizeof(u32_t), NULL, NULL},
-//    {LEAP_XU.LEAP_XU_LED_POSITIONS, sizeof(u8_t), NULL, NULL}
-//};
-//static const int num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_ctrls[0] );
+        {LEAP_XU_STROBE_WIDTH, sizeof(u32_t), NULL, NULL},
+        {LEAP_XU_LED_POSITIONS, sizeof(u8_t), NULL, NULL}
+    };
+static const int num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_ctrls[0] );
 
-static int find_leap_xu_ctrl(__u8 selector, leap_xu_ctrl *ctrl){
-    for(int c = 0; c < 2 /*num_leap_xu_ctrls*/; c++){
+static int find_leap_xu_ctrl(__u8 selector, struct leap_xu_ctrl *ctrl){
+    for(int c = 0; c < num_leap_xu_ctrls; c++){
         if(leap_xu_ctrls[c].selector == selector){
             ctrl = leap_xu_ctrls[c];
             return 0;
@@ -41,7 +41,7 @@ static int find_leap_xu_ctrl(__u8 selector, leap_xu_ctrl *ctrl){
 }
 
 static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control_query *xu_query){
-    leap_xu_ctrl *xu_ctrl;
+    struct leap_xu_ctrl *xu_ctrl;
     if(find_leap_xu_ctrl(xu_query->selector, xu_ctrl)){
         return -EINVAL;
     } else {
