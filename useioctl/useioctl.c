@@ -46,7 +46,6 @@ int query_info(int file_desc){
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
     printf("Query returned: %i\n", ret_val);
 
-    free(args.data);
     return ret_val;
 }
 
