@@ -19,6 +19,8 @@ long leap_xu_ioctl_default(struct file *file, void *fh, bool valid_prio, unsigne
          if(cmd == UVCIOC_CTRL_QUERY){
              struct uvc_xu_control_query xu_query = {};
              if(copy_from_user(&xu_query, arg, sizeof(struct uvc_xu_control_query))){
+                 printk(KERN_ALERT "Query type: %i for selector %i.\n", xu_query.query, xu_query.selector);
+                 
                  return handle_xu_operation(fh, valid_prio, &xu_query);
              } else {
                  return -EFAULT;
