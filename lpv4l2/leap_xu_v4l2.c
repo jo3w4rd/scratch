@@ -7,6 +7,8 @@
 #include <linux/uvcvideo.h>
 #include "leap_xu_v4l2.h"
 
+struct leap_xu_ctrl;
+
 typedef int(leap_xu_ctrl_cb)(
             void *fh,
             const struct leap_xu_ctrl *xu_ctrl,
@@ -19,6 +21,7 @@ struct leap_xu_ctrl{
     leap_xu_ctrl_cb *setter;
     leap_xu_ctrl_cb *getter;
 }
+
 
 static const leap_xu_ctrl leap_xu_ctrls[] = {
     {LEAP_XU_STROBE_WIDTH, sizeof(u32_t), NULL, NULL},
