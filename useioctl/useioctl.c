@@ -34,7 +34,7 @@
 
 int query_info(int file_desc){
     int ret_val;
-    uint16_t dataChar = 16;
+    uint16_t dataChar = 0;
     
     struct uvc_xu_control_query args;
     args.unit = 12;
@@ -44,7 +44,7 @@ int query_info(int file_desc){
     args.data = &dataChar;
     
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
-    printf("Query returned: %i, and data %lu\n", ret_val, (unsigned long))(uint16_t *)args.data);
+    printf("Query returned: %i, and data %lu\n", ret_val, (unsigned long)(uint16_t *)args.data);
 
     return ret_val;
 }
