@@ -31,6 +31,24 @@
 //             /* defined in linux/usb/video.h A.8.  */
 // __u16 size;
 // __u8 *data;
+int query_set(int file_desc){
+    int ret_val;
+    uint32_t dataChar = 0xffffffff;
+    
+    struct uvc_xu_control_query args = {};
+    printf("Init struct\n");    
+    args.unit = 12;
+    args.selector = LEAP_XU_STROBE_WIDTH;
+    args.query = UVC_SET_CUR;
+    args.size = sizeof(uint32_t);
+    args.data = (__u8 *)&dataChar;
+
+    printf("Calling set cur\n");    
+    ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
+    printf("Returned from set cur with value %lu\n", (long unsigned)dataChar);
+
+    return ret_val;
+}
 
 int query_get(int file_desc){
     int ret_val;
