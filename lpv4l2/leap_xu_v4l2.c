@@ -25,11 +25,16 @@ struct leap_xu_ctrl{
     leap_xu_ctrl_cb *getter;
 };
 
-
+leap_xu_ctrl_cb set_leap_xu_strobe_width(
+            void *fh,
+            const struct leap_xu_ctrl *xu_ctrl,
+            void *data
+            ){return 0;}
+            
 static struct leap_xu_ctrl leap_xu_ctrls[] = {
-            {LEAP_XU_STROBE_WIDTH, sizeof(uint32_t), NULL, NULL},
+            {LEAP_XU_STROBE_WIDTH, sizeof(uint32_t), NULL, &set_leap_xu_strobe_width},
             {LEAP_XU_LED_POSITIONS, sizeof(uint8_t), NULL, NULL},
-            {LEAP_XU_DEVCAPS, sizeof(uint8_t) * sizeof(LEAP_DEVCAPS), NULL, NULL},
+            {LEAP_XU_DEVCAPS, sizeof(uint8_t) * sizeof(LEAP_DEVCAPS), &set_leap_xu_strobe_width, &set_leap_xu_strobe_width},
             {LEAP_XU_EMBLINE_BEHAVIOR, sizeof(uint8_t) * sizeof(LEAP_EMBLINE_FORMAT_LASTLINE), NULL, NULL},
             {LEAP_XU_DEVCONFIG, sizeof(uint8_t) * sizeof(LEAP_DEVCONFIG), NULL, NULL},
         };
@@ -76,8 +81,6 @@ static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control
                 *(xu_query->data) = 0;
                 if(xu_ctrl->getter) *(xu_query->data) |= 0x01;
                 if(xu_ctrl->setter) *(xu_query->data) |= 0x02;
-                //if(xu_ctrl->setter && xu_ctrl->getter) *(xu_query->data) = 3;
-                printk(KERN_ALERT "data = %u\n", *xu_query->data);
                 return 0;
             default:
                 return -EINVAL;
