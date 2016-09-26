@@ -29,6 +29,9 @@ struct leap_xu_ctrl{
 static struct leap_xu_ctrl leap_xu_ctrls[] = {
             {LEAP_XU_STROBE_WIDTH, sizeof(uint32_t), NULL, NULL},
             {LEAP_XU_LED_POSITIONS, sizeof(uint8_t), NULL, NULL}
+            {LEAP_XU_DEVCAPS, sizeof(uint8_t) * sizeof(LEAP_DEVCAPS), NULL, NULL}
+            {LEAP_XU_EMBLINE_BEHAVIOR, sizeof(uint8_t) * sizeof(LEAP_EMBLINE_FORMAT_LASTLINE), NULL, NULL}
+            {LEAP_XU_DEVCONFIG, sizeof(uint8_t) * sizeof(LEAP_DEVCONFIG), NULL, NULL}
         };
 static const int num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_ctrls[0] );
 
