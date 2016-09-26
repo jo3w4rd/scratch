@@ -32,6 +32,25 @@
 // __u16 size;
 // __u8 *data;
 
+int query_get(int file_desc){
+    int ret_val;
+    uint32_t dataChar = 0;
+    
+    struct uvc_xu_control_query args = {};
+    printf("Init struct\n");    
+    args.unit = 12;
+    args.selector = LEAP_XU_STROBE_WIDTH;
+    args.query = UVC_GET_CUR;
+    args.size = sizeof(uint32_t);
+    args.data = (__u8 *)&dataChar;
+
+    printf("Calling get cur\n");    
+    ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
+    printf("Returned from get cur with value %lu\n", dataChar);
+
+    return ret_val;
+}
+
 int query_info(int file_desc){
     int ret_val;
     uint8_t dataChar = 3;
@@ -91,11 +110,15 @@ int main()
   if(ret_val < 0){
       printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
   }
-  printf("Calling get info\n");
   ret_val = query_info(file_desc);
   if(ret_val < 0){
       printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
   }
+  ret_val = query_get(file_desc);
+  if(ret_val < 0){
+      printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
+  }
+
   close(file_desc); 
   
   return ret_val;
