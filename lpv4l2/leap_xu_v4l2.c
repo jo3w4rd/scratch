@@ -40,7 +40,7 @@ static int find_leap_xu_ctrl(__u8 selector, const struct leap_xu_ctrl *ctrl){
         if(leap_xu_ctrls[c].id == selector){
             ctrl = &leap_xu_ctrls[c];
             if(ctrl == NULL )     printk(KERN_ALERT "Found null xu\n");
-            else printk(KERN_ALERT "xu addy %p\n");
+            else printk(KERN_ALERT "xu addy %p\n", ctrl);
             return 0;
         }
     }
@@ -71,7 +71,8 @@ static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control
                 }
             case UVC_GET_LEN:
                 printk(KERN_ALERT "In length.\n");
-            
+                printk(KERN_ALERT "xu_ctrl addy %p\n", xu_ctrl);
+                printk(KERN_ALERT "query addy %p\n", xu_query);
                 *xu_query->data = xu_ctrl->dataSize;
                 return 0;
             case UVC_GET_INFO:
