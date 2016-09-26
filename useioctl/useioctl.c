@@ -48,8 +48,10 @@ int query_info(int file_desc){
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
     printf("Returned from get info\n");
     uint8_t cgs = (uint8_t)*args.data;
+    printf("access data\n");
     char *canGet = cgs & 0x01 ? "yes" : "no";
     char *canSet = cgs & 0x02 ? "yes" : "no";
+    printf("make char strings\n");
     printf("Get: %s, Set %s\n", canGet, canSet);
 
     return ret_val;
