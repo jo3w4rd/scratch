@@ -26,7 +26,7 @@ struct leap_xu_ctrl{
 };
 
 int set_leap_xu_strobe_width(void *fh, const struct leap_xu_ctrl *xu_ctrl, void *data){
-    printk("Set strobe width to %lu\n", (unsigned long)*data);
+    printk("Set strobe width to %lu\n", *(unsigned long *)data);
     return 0;
 }
 
