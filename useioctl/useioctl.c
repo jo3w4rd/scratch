@@ -34,7 +34,7 @@
 
 int query_get(int file_desc){
     int ret_val;
-    uint32_t dataChar = 0;
+    uint32_t dataChar = 5;
     
     struct uvc_xu_control_query args = {};
     printf("Init struct\n");    
