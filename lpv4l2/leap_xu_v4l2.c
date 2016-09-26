@@ -40,7 +40,7 @@ static int find_leap_xu_ctrl(__u8 selector, const struct leap_xu_ctrl *ctrl){
         if(leap_xu_ctrls[c].id == selector){
             ctrl = &leap_xu_ctrls[c];
             if(ctrl == NULL )     printk(KERN_ALERT "Found null xu\n");
-
+            else printk(KERN_ALERT "xu addy %p\n");
             return 0;
         }
     }
