@@ -63,7 +63,6 @@ static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control
                 }
             case UVC_GET_LEN:
                 *xu_query->data = xu_ctrl->dataSize;
-                printk(KERN_ALERT "Length of %lu\n", (unsigned long)xu_ctrl->dataSize);
                 return 0;
             case UVC_GET_INFO:
                 xu_query->data = 0;
