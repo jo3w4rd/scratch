@@ -34,13 +34,13 @@
 
 int query_info(int file_desc){
     int ret_val;
-    uint16_t dataChar = 18;
+    uint8_t dataChar = 18;
     
     struct uvc_xu_control_query args = {};
     args.unit = 12;
     args.selector = LEAP_XU_STROBE_WIDTH;
     args.query = UVC_GET_LEN;
-    args.size = 2;
+    args.size = 1;
     args.data = (__u8 *)&dataChar;
     
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
