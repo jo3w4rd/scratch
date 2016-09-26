@@ -38,7 +38,7 @@ static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control
     for(c =0; c < num_leap_xu_ctrls; c++){ //find control struct
         if(leap_xu_ctrls[c].id == xu_query->selector){
             xu_ctrl = &leap_xu_ctrls[c];
-            printk(KERN_ALERT "Found %s\n", LEAP_SC_NAMES[xu_ctrl.id]);
+            printk(KERN_ALERT "Found %s\n", LEAP_SC_NAMES[xu_ctrl->id]);
         }
     }
     
