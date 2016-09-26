@@ -34,6 +34,22 @@
 
 int query_info(int file_desc){
     int ret_val;
+    uint8_t dataChar = 22;
+    
+    struct uvc_xu_control_query args = {};
+    args.unit = 12;
+    args.selector = LEAP_XU_DEVCAPS;
+    args.query = UVC_GET_INFO;
+    args.size = 1;
+    args.data = (__u8 *)&dataChar;
+    
+    ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
+    printf("Get: %s, Set %s\n", ((uint8_t)*args.data) & 0x01) ? "yes" : "no", ((uint8_t)*args.data) & 0x02) ? "yes" : "no";
+
+    return ret_val;
+}
+int query_length(int file_desc){
+    int ret_val;
     uint16_t dataChar = 22;
     
     struct uvc_xu_control_query args = {};
@@ -63,10 +79,13 @@ int main()
     exit(-1);
   }
 
+  ret_val = query_length(file_desc);
+  if(ret_val < 0){
+      printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
+  }
   ret_val = query_info(file_desc);
   if(ret_val < 0){
       printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
-      
   }
   close(file_desc); 
   
