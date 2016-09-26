@@ -35,12 +35,10 @@ static const int num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_c
 static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control_query *xu_query){
     struct leap_xu_ctrl *xu_ctrl = NULL;
     int c;
-    printk(KERN_ALERT "In handle xu op\n");
-
-    for(c =0; c < num_leap_xu_ctrls; c++){
+    for(c =0; c < num_leap_xu_ctrls; c++){ //find control struct
         if(leap_xu_ctrls[c].id == xu_query->selector){
             xu_ctrl = &leap_xu_ctrls[c];
-            printk(KERN_ALERT "xu addy %p\n", xu_ctrl);
+            printk(KERN_ALERT "Found %s\n", LEAP_SC_NAMES[xu_ctrl.id]);
         }
     }
     
@@ -61,9 +59,6 @@ static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control
                     return -EBADRQC;
                 }
             case UVC_GET_LEN:
-                printk(KERN_ALERT "In length.\n");
-                printk(KERN_ALERT "xu_ctrl addy %p\n", xu_ctrl);
-                printk(KERN_ALERT "query addy %p\n", xu_query);
                 *xu_query->data = xu_ctrl->dataSize;
                 return 0;
             case UVC_GET_INFO:
