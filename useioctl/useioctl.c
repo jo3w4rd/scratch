@@ -46,7 +46,7 @@ int query_get(int file_desc){
 
     printf("Calling get cur\n");    
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
-    printf("Returned from get cur with value %lu\n", dataChar);
+    printf("Returned from get cur with value %lu\n", (long unsigned)dataChar);
 
     return ret_val;
 }
@@ -114,6 +114,7 @@ int main()
   if(ret_val < 0){
       printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
   }
+  
   ret_val = query_get(file_desc);
   if(ret_val < 0){
       printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
