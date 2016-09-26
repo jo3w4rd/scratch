@@ -35,6 +35,7 @@ static const int num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_c
 static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control_query *xu_query){
     struct leap_xu_ctrl *xu_ctrl = NULL;
     int c;
+    printk(KERN_ALERT "unit %u, sel %u, query %u, size %lu, dataP %p val %lu", xu_query->unit, xu_query->selector, xu_query->query, xu_query->size, xu_query->data, *(xu_query->data));
     for(c =0; c < num_leap_xu_ctrls; c++){ //find control struct
         if(leap_xu_ctrls[c].id == xu_query->selector){
             xu_ctrl = &leap_xu_ctrls[c];
