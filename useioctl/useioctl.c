@@ -41,10 +41,10 @@ int query_info(int file_desc){
     args.selector = LEAP_XU_LED_POSITIONS;
     args.query = UVC_GET_LEN;
     args.size = 2;
-    args.data = &dataChar;
+    args.data = (__u8 *)&dataChar;
     
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
-    printf("Query returned: %i, and data %lu\n", ret_val, (unsigned long)(uint16_t *)args.data);
+    printf("Query returned: %i, and data %lu\n", ret_val, (unsigned long)*args.data);
 
     return ret_val;
 }
