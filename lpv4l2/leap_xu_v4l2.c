@@ -32,7 +32,7 @@ int set_leap_xu_strobe_width(void *fh, const struct leap_xu_ctrl *xu_ctrl, void 
 
 int get_leap_xu_strobe_width(void *fh, const struct leap_xu_ctrl *xu_ctrl, void *data){
     uint32_t strobe_width = 0xffffffff;
-    *data = strobe_width;
+    *(uint32_t *)data = strobe_width;
     return 0;
 }
             
