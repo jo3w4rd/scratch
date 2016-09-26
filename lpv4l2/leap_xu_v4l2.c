@@ -39,6 +39,8 @@ static int find_leap_xu_ctrl(__u8 selector, const struct leap_xu_ctrl *ctrl){
     for(c =0; c < num_leap_xu_ctrls; c++){
         if(leap_xu_ctrls[c].id == selector){
             ctrl = &leap_xu_ctrls[c];
+            if(ctrl == NULL )     printk(KERN_ALERT "Found null xu\n");
+
             return 0;
         }
     }
