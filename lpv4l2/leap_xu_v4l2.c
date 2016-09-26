@@ -26,21 +26,20 @@ struct leap_xu_ctrl{
 };
 
 
-static const struct leap_xu_ctrl leap_xu_ctrls[] = {
+static struct leap_xu_ctrl leap_xu_ctrls[] = {
             {LEAP_XU_STROBE_WIDTH, sizeof(uint32_t), NULL, NULL},
             {LEAP_XU_LED_POSITIONS, sizeof(uint8_t), NULL, NULL}
         };
 static const int num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_ctrls[0] );
 
-static int find_leap_xu_ctrl(__u8 selector, const struct leap_xu_ctrl *ctrl){
+static int find_leap_xu_ctrl(__u8 selector, struct leap_xu_ctrl *ctrl){
     int c;
     printk(KERN_ALERT "In find xu\n");
     
     for(c =0; c < num_leap_xu_ctrls; c++){
         if(leap_xu_ctrls[c].id == selector){
             ctrl = &leap_xu_ctrls[c];
-            if(ctrl == NULL )     printk(KERN_ALERT "Found null xu\n");
-            else printk(KERN_ALERT "xu addy %p\n", ctrl);
+            printk(KERN_ALERT "xu addy %p\n", ctrl);
             return 0;
         }
     }
@@ -48,7 +47,7 @@ static int find_leap_xu_ctrl(__u8 selector, const struct leap_xu_ctrl *ctrl){
 }
 
 static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control_query *xu_query){
-    const struct leap_xu_ctrl *xu_ctrl = NULL;
+    struct leap_xu_ctrl *xu_ctrl = NULL;
     printk(KERN_ALERT "In handle xu op\n");
     
     if(find_leap_xu_ctrl(xu_query->selector, xu_ctrl)){
