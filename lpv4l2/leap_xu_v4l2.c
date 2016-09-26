@@ -32,29 +32,20 @@ static struct leap_xu_ctrl leap_xu_ctrls[] = {
         };
 static const int num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_ctrls[0] );
 
-static int find_leap_xu_ctrl(__u8 selector, struct leap_xu_ctrl *ctrl){
-    int c;
-    printk(KERN_ALERT "In find xu\n");
-    
-    for(c =0; c < num_leap_xu_ctrls; c++){
-        if(leap_xu_ctrls[c].id == selector){
-            ctrl = &leap_xu_ctrls[c];
-            printk(KERN_ALERT "xu addy %p\n", ctrl);
-            return 0;
-        }
-    }
-    return -EINVAL;
-}
-
 static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control_query *xu_query){
     struct leap_xu_ctrl *xu_ctrl = NULL;
     printk(KERN_ALERT "In handle xu op\n");
+
+    for(c =0; c < num_leap_xu_ctrls; c++){
+        if(leap_xu_ctrls[c].id == xu_query->selector){
+            xu_ctrl = &leap_xu_ctrls[c];
+            printk(KERN_ALERT "xu addy %p\n", ctrl);
+        }
+    }
     
-    if(find_leap_xu_ctrl(xu_query->selector, xu_ctrl)){
+    if(xu_ctrl == NULL){
         return -EINVAL;
     } else {
-        printk(KERN_ALERT "back from find xu op\n");
-        
         switch(xu_query->query){
             case UVC_SET_CUR:
                 if(xu_ctrl->setter){
