@@ -21,8 +21,8 @@ typedef int(leap_xu_ctrl_cb)(
 struct leap_xu_ctrl{
     __u8 id;
     __u16 dataSize;
-    leap_xu_ctrl_cb *setter;
     leap_xu_ctrl_cb *getter;
+    leap_xu_ctrl_cb *setter;
 };
 
 int set_leap_xu_strobe_width(void *fh, const struct leap_xu_ctrl *xu_ctrl, void *data){
@@ -39,7 +39,7 @@ int get_leap_xu_strobe_width(void *fh, const struct leap_xu_ctrl *xu_ctrl, void 
 static struct leap_xu_ctrl leap_xu_ctrls[] = {
             {LEAP_XU_STROBE_WIDTH, sizeof(uint32_t), &get_leap_xu_strobe_width, &set_leap_xu_strobe_width},
             {LEAP_XU_LED_POSITIONS, sizeof(uint8_t), NULL, NULL},
-            {LEAP_XU_DEVCAPS, sizeof(uint8_t) * sizeof(LEAP_DEVCAPS), &set_leap_xu_strobe_width, NULL},
+            {LEAP_XU_DEVCAPS, sizeof(uint8_t) * sizeof(LEAP_DEVCAPS), &get_leap_xu_strobe_width, NULL},
             {LEAP_XU_EMBLINE_BEHAVIOR, sizeof(uint8_t) * sizeof(LEAP_EMBLINE_FORMAT_LASTLINE), NULL, NULL},
             {LEAP_XU_DEVCONFIG, sizeof(uint8_t) * sizeof(LEAP_DEVCONFIG), NULL, NULL},
         };
