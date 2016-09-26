@@ -34,14 +34,14 @@
 
 int query_info(int file_desc){
     int ret_val;
-    uint16_t dataChar = 0;
+    uint16_t dataChar = 18;
     
-    struct uvc_xu_control_query args;
+    struct uvc_xu_control_query args = {};
     args.unit = 12;
     args.selector = LEAP_XU_LED_POSITIONS;
     args.query = UVC_GET_LEN;
     args.size = 2;
-    args.data = (__u8 *)&dataChar;
+    args.data = &dataChar;
     
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
     printf("Query returned: %i, and data %lu\n", ret_val, (unsigned long)*args.data);
