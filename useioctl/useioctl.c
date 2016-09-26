@@ -37,15 +37,16 @@ int query_info(int file_desc){
     uint8_t dataChar = 0;
     
     struct uvc_xu_control_query args = {};
+    printf("Init struct\n");    
     args.unit = 12;
     args.selector = LEAP_XU_DEVCAPS;
     args.query = UVC_GET_INFO;
     args.size = 1;
     args.data = (__u8 *)&dataChar;
 
-    printf("Calling get info");    
+    printf("Calling get info\n");    
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
-    printf("Returned from get info");
+    printf("Returned from get info\n");
     char *canGet = (uint8_t)*args.data & 0x01 ? "yes" : "no";
     char *canSet = (uint8_t)*args.data & 0x02 ? "yes" : "no";
     printf("Get: %s, Set %s\n", canGet, canSet);
@@ -87,6 +88,7 @@ int main()
   if(ret_val < 0){
       printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
   }
+  printf("Calling get info\n");
   ret_val = query_info(file_desc);
   if(ret_val < 0){
       printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
