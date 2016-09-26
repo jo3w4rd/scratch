@@ -36,7 +36,7 @@ static int find_leap_xu_ctrl(__u8 selector, const struct leap_xu_ctrl *ctrl){
     int c;
     for(c =0; c < num_leap_xu_ctrls; c++){
         if(leap_xu_ctrls[c].id == selector){
-            ctrl = &leap_xu_ctrls[c];
+            ctrl = leap_xu_ctrls[c];
             return 0;
         }
     }
