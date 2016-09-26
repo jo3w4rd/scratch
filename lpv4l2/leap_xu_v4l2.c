@@ -25,7 +25,7 @@ struct leap_xu_ctrl{
     leap_xu_ctrl_cb *getter;
 };
 
-leap_xu_ctrl_cb set_leap_xu_strobe_width(
+int set_leap_xu_strobe_width(
             void *fh,
             const struct leap_xu_ctrl *xu_ctrl,
             void *data
