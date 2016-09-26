@@ -34,7 +34,7 @@
 
 int query_info(int file_desc){
     int ret_val;
-    uint8_t dataChar = 0;
+    uint8_t dataChar = 3;
     
     struct uvc_xu_control_query args = {};
     printf("Init struct\n");    
@@ -47,8 +47,9 @@ int query_info(int file_desc){
     printf("Calling get info\n");    
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
     printf("Returned from get info\n");
-    char *canGet = (uint8_t)*args.data & 0x01 ? "yes" : "no";
-    char *canSet = (uint8_t)*args.data & 0x02 ? "yes" : "no";
+    uint8_t cgs = (uint8_t)*args.data;
+    char *canGet = cgs & 0x01 ? "yes" : "no";
+    char *canSet = cgs & 0x02 ? "yes" : "no";
     printf("Get: %s, Set %s\n", canGet, canSet);
 
     return ret_val;
