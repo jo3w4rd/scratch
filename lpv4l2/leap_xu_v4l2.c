@@ -76,6 +76,7 @@ static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control
                 xu_query->data = 0;
                 if(xu_ctrl->getter) *xu_query->data |= 0x01;
                 if(xu_ctrl->setter) *xu_query->data |= 0x02;
+                printk(KERN_ALERT "data = %u\n", *xu_query->data);
                 return 0;
             default:
                 return -EINVAL;
