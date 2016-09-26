@@ -64,7 +64,7 @@ static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control
                 printk(KERN_ALERT "In length.\n");
                 printk(KERN_ALERT "xu_ctrl addy %p\n", xu_ctrl);
                 printk(KERN_ALERT "query addy %p\n", xu_query);
-                //*xu_query->data = xu_ctrl->dataSize;
+                *xu_query->data = xu_ctrl->dataSize;
                 return 0;
             case UVC_GET_INFO:
                 xu_query->data = 0;
