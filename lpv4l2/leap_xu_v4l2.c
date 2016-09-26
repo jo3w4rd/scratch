@@ -39,6 +39,7 @@ static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control
         if(leap_xu_ctrls[c].id == xu_query->selector){
             xu_ctrl = &leap_xu_ctrls[c];
             printk(KERN_ALERT "Found %s with size: %i\n", LEAP_SC_NAMES[xu_ctrl->id - 1], xu_ctrl->dataSize);
+            break;
         }
     }
     
