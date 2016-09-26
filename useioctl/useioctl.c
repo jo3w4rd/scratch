@@ -38,8 +38,8 @@ int query_info(int file_desc){
     
     struct uvc_xu_control_query args = {};
     args.unit = 12;
-    args.selector = LEAP_XU_LED_POSITIONS;
-    args.query  = UVC_GET_LEN;
+    args.selector = LEAP_XU_STROBE_WIDTH;
+    args.query = UVC_GET_LEN;
     args.size = 2;
     args.data = (__u8 *)&dataChar;
     
