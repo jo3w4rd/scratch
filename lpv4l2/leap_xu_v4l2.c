@@ -19,7 +19,7 @@ typedef int(leap_xu_ctrl_cb)(
             );
 
 struct leap_xu_ctrl{
-    __u8 id;
+    __u8 selector;
     __u16 dataSize;
     leap_xu_ctrl_cb *getter;
     leap_xu_ctrl_cb *setter;
@@ -35,30 +35,31 @@ int get_leap_xu_strobe_width(void *fh, const struct leap_xu_ctrl *xu_ctrl, void 
     *(uint32_t *)data = strobe_width;
     return 0;
 }
-            
+
+int get_leap_xu_devcaps(void *fh, const struct leap_xu_ctrl *xu_ctrl, void *data){
+    LEAP_DEVCAPS *dev_caps = (LEAP_DEVCAPS *)data;
+    dev_caps->flags = 0x01010101;
+    dev_caps->firmware_rev = 1;
+    dev_caps->controller_id = CONTROLLER_OV580;
+    dev_caps->sensor_id = SENSOR_OV7251;
+    dev_caps->serial = "one";
+    return 0;
+}
+
 static struct leap_xu_ctrl leap_xu_ctrls[] = {
-            {LEAP_XU_STROBE_WIDTH, sizeof(uint32_t), &get_leap_xu_strobe_width, &set_leap_xu_strobe_width},
-            {LEAP_XU_LED_POSITIONS, sizeof(uint8_t), NULL, NULL},
-            {LEAP_XU_DEVCAPS, sizeof(uint8_t) * sizeof(LEAP_DEVCAPS), &get_leap_xu_strobe_width, NULL},
-            {LEAP_XU_EMBLINE_BEHAVIOR, sizeof(uint8_t) * sizeof(LEAP_EMBLINE_FORMAT_LASTLINE), NULL, NULL},
-            {LEAP_XU_DEVCONFIG, sizeof(uint8_t) * sizeof(LEAP_DEVCONFIG), NULL, NULL},
-        };
+    {LEAP_XU_STROBE_WIDTH, sizeof(uint32_t), &get_leap_xu_strobe_width, &set_leap_xu_strobe_width},
+    {LEAP_XU_DEVCAPS, sizeof(uint8_t) * sizeof(LEAP_DEVCAPS), &get_leap_xu_strobe_width, NULL},
+};
 static const int num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_ctrls[0] );
 
 static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control_query *xu_query){
     struct leap_xu_ctrl *xu_ctrl = NULL;
     int c;
-//    printk(KERN_ALERT "unit %u, sel %u, query %u, size %lu, dataP %p val %lu", 
-//            xu_query->unit, 
-//            xu_query->selector, 
-//            xu_query->query, 
-//            (unsigned long)xu_query->size, 
-//            xu_query->data, 
-//            (unsigned long)*(xu_query->data));
-    for(c =0; c < num_leap_xu_ctrls; c++){ //find control struct
-        if(leap_xu_ctrls[c].id == xu_query->selector){
+    
+    //find the control struct
+    for(c =0; c < num_leap_xu_ctrls; c++){
+        if(leap_xu_ctrls[c].selector == xu_query->selector){
             xu_ctrl = &leap_xu_ctrls[c];
-            printk(KERN_ALERT "Found %i == %i %s with size: %i\n", xu_query->selector, leap_xu_ctrls[c].id, LEAP_SC_NAMES[xu_ctrl->id - 1], xu_ctrl->dataSize);
             break;
         }
     }
@@ -94,8 +95,6 @@ static long handle_xu_operation(void *fh, bool valid_prio, struct uvc_xu_control
 }
 
 long leap_xu_ioctl_default(struct file *file, void *fh, bool valid_prio, unsigned int cmd, void *arg) {
-         printk(KERN_ALERT "xu ioctl was indeed called\n");
-         
          if(cmd == UVCIOC_CTRL_QUERY){
             return handle_xu_operation(fh, valid_prio, arg);
          } else {

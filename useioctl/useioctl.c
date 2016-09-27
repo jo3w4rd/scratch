@@ -31,7 +31,7 @@
 //             /* defined in linux/usb/video.h A.8.  */
 // __u16 size;
 // __u8 *data;
-int query_set(int file_desc){
+int query_set_strobe(int file_desc){
     int ret_val;
     uint32_t dataChar = 0xffffffff;
     
@@ -50,7 +50,26 @@ int query_set(int file_desc){
     return ret_val;
 }
 
-int query_get(int file_desc){
+int query_get_devcaps(int file_desc){
+    int ret_val;
+    LEAP_DEVCAPS caps = {};
+    
+    struct uvc_xu_control_query args = {};
+    printf("Init struct\n");    
+    args.unit = 12;
+    args.selector = LEAP_XU_DEVCAPS;
+    args.query = UVC_GET_CUR;
+    args.size = sizeof(uint32_t);
+    args.data = (__u8 *)&caps;
+
+    printf("Calling get cur devcaps\n");    
+    ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
+    printf("Devcaps: 0x%08X, %lu, %u, %u, %s\n", aps.flags, caps.firmware_rev, caps.controller_id, caps.sensor_id,caps.serial);
+
+    return ret_val;
+}
+
+int query_get_strobe(int file_desc){
     int ret_val;
     uint32_t dataChar = 5;
     
@@ -133,12 +152,12 @@ int main()
       printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
   }
   
-  ret_val = query_get(file_desc);
+  ret_val = query_get_strobe(file_desc);
   if(ret_val < 0){
       printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
   }
 
-  ret_val = query_set(file_desc);
+  ret_val = query_set_strobe(file_desc);
   if(ret_val < 0){
       printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
   }
