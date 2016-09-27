@@ -162,6 +162,11 @@ int main()
       printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
   }
 
+  ret_val = query_get_devcaps(file_desc);
+  if(ret_val < 0){
+      printf ("Query returned error: %i, %s\n", ret_val, strerror(errsv));
+  }
+
   close(file_desc); 
   
   return ret_val;
