@@ -48,7 +48,7 @@ int get_leap_xu_devcaps(void *fh, const struct leap_xu_ctrl *xu_ctrl, void *data
 
 static struct leap_xu_ctrl leap_xu_ctrls[] = {
     {LEAP_XU_STROBE_WIDTH, sizeof(uint32_t), &get_leap_xu_strobe_width, &set_leap_xu_strobe_width},
-    {LEAP_XU_DEVCAPS, sizeof(uint8_t) * sizeof(LEAP_DEVCAPS), &get_leap_xu_strobe_width, NULL},
+    {LEAP_XU_DEVCAPS, sizeof(uint8_t) * sizeof(LEAP_DEVCAPS), &get_leap_xu_devcaps, NULL},
 };
 static const int num_leap_xu_ctrls = sizeof( leap_xu_ctrls ) / sizeof( leap_xu_ctrls[0] );
 
