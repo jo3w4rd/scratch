@@ -43,7 +43,6 @@ int query_set_strobe(int file_desc){
     args.size = sizeof(uint32_t);
     args.data = (__u8 *)&dataChar;
 
-    printf("Calling set cur\n");    
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
     printf("Returned from set cur with value %lu\n", (long unsigned)dataChar);
 
@@ -62,7 +61,6 @@ int query_get_devcaps(int file_desc){
     args.size = sizeof(uint32_t);
     args.data = (__u8 *)&caps;
 
-    printf("Calling get cur devcaps\n");    
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
     printf("Devcaps: 0x%08X, %lu, %u, %u, %s\n", caps.flags, (long unsigned int)caps.firmware_rev, caps.controller_id, caps.sensor_id,caps.serial);
 
@@ -81,33 +79,46 @@ int query_get_strobe(int file_desc){
     args.size = sizeof(uint32_t);
     args.data = (__u8 *)&dataChar;
 
-    printf("Calling get cur\n");    
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
     printf("Returned from get cur with value %lu\n", (long unsigned)dataChar);
 
     return ret_val;
 }
 
+int query_get_unknown(int file_desc){
+    int ret_val;
+    uint32_t dataChar = 5;
+    
+    struct uvc_xu_control_query args = {};
+    printf("Init struct\n");    
+    args.unit = 12;
+    args.selector = 75;
+    args.query = UVC_GET_CUR;
+    args.size = sizeof(uint32_t);
+    args.data = (__u8 *)&dataChar;
+
+    ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
+    printf("Returned from get cur with value %lu\n", (long unsigned)dataChar);
+
+    return ret_val;
+}
+
+
 int query_info(int file_desc){
     int ret_val;
     uint8_t dataChar = 3;
     
     struct uvc_xu_control_query args = {};
-    printf("Init struct\n");    
     args.unit = 12;
     args.selector = LEAP_XU_DEVCAPS;
     args.query = UVC_GET_INFO;
     args.size = 1;
     args.data = (__u8 *)&dataChar;
 
-    printf("Calling get info\n");    
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
-    printf("Returned from get info\n");
     uint8_t cgs = (uint8_t)*args.data;
-    printf("access data\n");
     char *canGet = cgs & 0x01 ? "yes" : "no";
     char *canSet = cgs & 0x02 ? "yes" : "no";
-    printf("make char strings\n");
     printf("Get: %s, Set %s\n", canGet, canSet);
 
     return ret_val;
