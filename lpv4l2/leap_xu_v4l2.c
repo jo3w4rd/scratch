@@ -42,7 +42,7 @@ int get_leap_xu_devcaps(void *fh, const struct leap_xu_ctrl *xu_ctrl, void *data
     dev_caps->firmware_rev = 1;
     dev_caps->controller_id = CONTROLLER_OV580;
     dev_caps->sensor_id = SENSOR_OV7251;
-    dev_caps->serial = "one";
+    strcopy(dev_caps->serial, "one");
     return 0;
 }
 
