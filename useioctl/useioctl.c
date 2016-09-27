@@ -64,7 +64,7 @@ int query_get_devcaps(int file_desc){
 
     printf("Calling get cur devcaps\n");    
     ret_val = ioctl(file_desc, UVCIOC_CTRL_QUERY, &args);
-    printf("Devcaps: 0x%08X, %lu, %u, %u, %s\n", caps.flags, caps.firmware_rev, caps.controller_id, caps.sensor_id,caps.serial);
+    printf("Devcaps: 0x%08X, %lu, %u, %u, %s\n", caps.flags, (long unsigned int)caps.firmware_rev, caps.controller_id, caps.sensor_id,caps.serial);
 
     return ret_val;
 }
