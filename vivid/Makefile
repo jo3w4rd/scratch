@@ -4,3 +4,5 @@ vivid-objs := vivid-core.o vivid-ctrls.o vivid-vid-common.o vivid-vbi-gen.o \
 		vivid-rds-gen.o vivid-sdr-cap.o vivid-vbi-cap.o vivid-vbi-out.o \
 		vivid-osd.o vivid-tpg.o vivid-tpg-colors.o
 obj-m += vivid.o
+
+EXTRA_CFLAGS += -D__VCCOREVER__=0x04000000
