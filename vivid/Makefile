@@ -6,3 +6,4 @@ vivid-objs := vivid-core.o vivid-ctrls.o vivid-vid-common.o vivid-vbi-gen.o \
 obj-m += vivid.o
 
 EXTRA_CFLAGS += -D__VCCOREVER__=0x04000000
+XTRA="KBUILD_EXTRA_SYMBOLS=~/linux/Module.symvers"
