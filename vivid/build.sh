@@ -1,1 +1,1 @@
-make -C /lib/modules/$(uname -r)/build M=$(pwd) modules
+make XTRA="KBUILD_EXTRA_SYMBOLS=~/linux/Module.symvers" -C ~/linux M=$(pwd) modules
