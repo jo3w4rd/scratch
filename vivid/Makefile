@@ -1,3 +1,4 @@
+ifneq ($(KERNELRELEASE),)
 vivid-objs := vivid-core.o vivid-ctrls.o vivid-vid-common.o vivid-vbi-gen.o \
 		vivid-vid-cap.o vivid-vid-out.o vivid-kthread-cap.o vivid-kthread-out.o \
 		vivid-radio-rx.o vivid-radio-tx.o vivid-radio-common.o \
@@ -5,5 +6,14 @@ vivid-objs := vivid-core.o vivid-ctrls.o vivid-vid-common.o vivid-vbi-gen.o \
 		vivid-osd.o vivid-tpg.o vivid-tpg-colors.o
 obj-m += vivid.o
 
-EXTRA_CFLAGS += -D__VCCOREVER__=0x04000000
-XTRA="KBUILD_EXTRA_SYMBOLS=~/linux/Module.symvers"
+else
+
+KDIR ?= /lib/modules/`uname -r`/build
+
+default:
+    $(MAKE) -C $(KDIR) M=$$PWD
+    
+genbin:
+    echo "X" > vivid_bin.o_shipped
+    
+endif

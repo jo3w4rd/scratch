@@ -78,31 +78,30 @@ static long handle_xu_operation(void *fh,
     
     if(xu_ctrl == NULL){
         return -ENOENT;
-    } else {
-        switch(xu_query->query){
-            case UVC_SET_CUR:
-                if(xu_ctrl->setter){
-                    return xu_ctrl->setter(fh, xu_ctrl, xu_query->data);
-                } else {
-                    return -EBADRQC;
-                }
-            case UVC_GET_CUR:
-                if(xu_ctrl->getter){
-                    return xu_ctrl->getter(fh, xu_ctrl, xu_query->data);
-                } else {
-                    return -EBADRQC;
-                }
-            case UVC_GET_LEN:
-                *xu_query->data = xu_ctrl->dataSize;
-                return 0;
-            case UVC_GET_INFO:
-                *(xu_query->data) = 0;
-                if(xu_ctrl->getter) *(xu_query->data) |= 0x01;
-                if(xu_ctrl->setter) *(xu_query->data) |= 0x02;
-                return 0;
-            default:
-                return -EINVAL;
-        }
+
+    switch(xu_query->query){
+        case UVC_SET_CUR:
+            if(xu_ctrl->setter){
+                return xu_ctrl->setter(fh, xu_ctrl, xu_query->data);
+            } else {
+                return -EBADRQC;
+            }
+        case UVC_GET_CUR:
+            if(xu_ctrl->getter){
+                return xu_ctrl->getter(fh, xu_ctrl, xu_query->data);
+            } else {
+                return -EBADRQC;
+            }
+        case UVC_GET_LEN:
+            *xu_query->data = xu_ctrl->dataSize;
+            return 0;
+        case UVC_GET_INFO:
+            *(xu_query->data) = 0;
+            if(xu_ctrl->getter) *(xu_query->data) |= 0x01;
+            if(xu_ctrl->setter) *(xu_query->data) |= 0x02;
+            return 0;
+        default:
+            return -EINVAL;
     }
 }
 
