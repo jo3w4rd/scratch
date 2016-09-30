@@ -11,9 +11,9 @@ else
 KDIR ?= /lib/modules/`uname -r`/build
 
 default:
-    $(MAKE) -C $(KDIR) M=$$PWD
-    
+	$(MAKE) -C $(KDIR) M=$$PWD
+
 genbin:
-    echo "X" > vivid_bin.o_shipped
-    
+	echo "X" > vivid_bin.o_shipped
+
 endif
